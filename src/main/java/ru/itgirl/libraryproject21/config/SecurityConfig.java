@@ -15,9 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((authorize) ->
+    SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/book").hasRole("USER")
                                 .requestMatchers("/book/v2").hasRole("ADMIN")
                                 .requestMatchers("/books").hasRole("ADMIN")
@@ -25,7 +24,7 @@ public class SecurityConfig {
                 )
                 .httpBasic();
 
-        return http.build();
+        return httpSecurity.build();
     }
 
     @Bean

@@ -12,6 +12,9 @@ public interface BookService {
 
     BookDto getByNameV3(String name);
 
+    BookDto getBookById(Long id);
+    void deleteBook(Long id);
+
     List<BookDto> getAllBooks();
 
 }

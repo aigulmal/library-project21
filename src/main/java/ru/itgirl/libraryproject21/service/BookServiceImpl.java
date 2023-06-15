@@ -20,6 +20,18 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     @Override
+    public BookDto getBookById(Long id) {
+        Book book = bookRepository.findById(id).orElseThrow();
+        BookDto bookDto = convertEntityToDto(book);
+        return bookDto;
+    }
+
+    @Override
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+    @Override
     public BookDto getByNameV1(String name){
         Book book = bookRepository.findBookByName(name).orElseThrow();
         return convertEntityToDto(book);
