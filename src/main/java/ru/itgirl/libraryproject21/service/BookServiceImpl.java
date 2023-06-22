@@ -13,23 +13,10 @@ import ru.itgirl.libraryproject21.repository.BookRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
-
-    @Override
-    public BookDto getBookById(Long id) {
-        Book book = bookRepository.findById(id).orElseThrow();
-        BookDto bookDto = convertEntityToDto(book);
-        return bookDto;
-    }
-
-    @Override
-    public void deleteBook(Long id) {
-        bookRepository.deleteById(id);
-    }
 
     @Override
     public BookDto getByNameV1(String name){
@@ -55,6 +42,19 @@ public class BookServiceImpl implements BookService {
         Book book = bookRepository.findOne(specification).orElseThrow();
         return convertEntityToDto(book);
     }
+    @Override
+    public BookDto getBookById(Long id) {
+        Book book = bookRepository.findById(id).orElseThrow();
+        BookDto bookDto = convertEntityToDto(book);
+        return bookDto;
+    }
+
+    @Override
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+
     @Override
     public List<BookDto> getAllBooks() {
         List<Book> books = bookRepository.findAll();

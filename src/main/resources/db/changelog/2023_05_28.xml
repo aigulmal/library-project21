@@ -59,4 +59,16 @@
 
         </sql>
     </changeSet>
+    <changeSet id="init db" author="user name">
+        <sql>
+            Create table if not exists users (
+            id bigserial PRIMARY KEY,
+            login varchar NOT NULL,
+            password varchar NOT NULL
+            );
+            Insert into users (login, password) values
+            ('admin', 'password'),
+            ('user', 'password');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
