@@ -19,9 +19,11 @@ public class UserRestController {
     UserDto getUserById(@PathVariable("id") Long id){return userService.getUserById(id);}
 
     @GetMapping("/users")
-    String getBooksView(Model model) {
+    String getUsersView(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
+
+
 
 }

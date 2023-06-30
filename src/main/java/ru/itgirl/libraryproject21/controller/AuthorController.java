@@ -11,15 +11,7 @@ import ru.itgirl.libraryproject21.service.BookService;
 
 @Controller
 @RequiredArgsConstructor
-public class AuthorController {
-    private final AuthorService authorService;
-    @GetMapping("/author/{id}")
-    AuthorDto getAuthorById(@PathVariable("id") Long id) {
-        return authorService.getAuthorById(id);
-    }
-    @GetMapping("/authors")
-    String getAuthorsView(Model model) {
-        model.addAttribute("authors", authorService.getAllAuthors());
-        return "authors";
-    }
+public class AuthorController
+{
+
 }
