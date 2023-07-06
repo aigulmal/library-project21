@@ -63,23 +63,36 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorDto createAuthor(AuthorCreateDto authorCreateDto) {
-        return null;
+        Author author = authorRepository.save(convertDtoToEntity(authorCreateDto));
+        AuthorDto authorDto = convertEntityToDto(author);
+        return authorDto;
     }
 
     @Override
     public AuthorDto updateAuthor(AuthorUpdateDto authorUpdateDto) {
-        return null;
+        Author author = authorRepository.findById(authorUpdateDto.getId()).orElseThrow();
+        author.setName(authorUpdateDto.getName());
+        author.setSurname(authorUpdateDto.getSurname());
+        Author savedAuthor = authorRepository.save(author);
+        AuthorDto authorDto = convertEntityToDto(savedAuthor);
+        return authorDto;
     }
 
     @Override
     public void deleteAuthor(Long id) {
-
+        authorRepository.deleteById(id);
     }
 
     @Override
     public List<AuthorDto> getAllAuthors() {
         List<Author> books = authorRepository.findAll();
         return books.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+    }
+    private Author convertDtoToEntity(AuthorCreateDto authorCreateDto) {
+        return Author.builder()
+                .name(authorCreateDto.getName())
+                .surname(authorCreateDto.getSurname())
+                .build();
     }
     private AuthorDto convertEntityToDto(Author author){
         List<BookDto> bookDtoList = null;

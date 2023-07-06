@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class AuthorCreateDto {
-    private String name;
-    private String surname;
+public class UserCreateDto {
+    private Long id;
+    private String login;
+    private String password;
 }

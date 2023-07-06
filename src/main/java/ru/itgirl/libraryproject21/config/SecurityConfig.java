@@ -20,6 +20,7 @@ public class SecurityConfig {
                         authorize.requestMatchers("/book").hasRole("USER")
                                 .requestMatchers("/book/v2").hasRole("ADMIN")
                                 .requestMatchers("/books").hasRole("ADMIN")
+                                .requestMatchers("/users").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .httpBasic();

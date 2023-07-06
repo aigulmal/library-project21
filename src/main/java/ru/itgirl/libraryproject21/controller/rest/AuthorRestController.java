@@ -4,10 +4,10 @@ package ru.itgirl.libraryproject21.controller.rest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.itgirl.libraryproject21.dto.AuthorCreateDto;
 import ru.itgirl.libraryproject21.dto.AuthorDto;
+import ru.itgirl.libraryproject21.dto.AuthorUpdateDto;
 import ru.itgirl.libraryproject21.service.AuthorService;
 
 @Controller
@@ -23,4 +23,16 @@ public class AuthorRestController {
             model.addAttribute("authors", authorService.getAllAuthors());
             return "authors";
         }
+    @PostMapping("/author/create")
+    AuthorDto createAuthor(@RequestBody AuthorCreateDto authorCreateDto) {
+        return authorService.createAuthor(authorCreateDto);
+    }
+    @PutMapping("/author/update")
+    AuthorDto updateAuthor(@RequestBody AuthorUpdateDto authorUpdateDto) {
+        return authorService.updateAuthor(authorUpdateDto);
+    }
+    @DeleteMapping("/author/delete/{id}")
+    void updateAuthor(@PathVariable("id") Long id) {
+        authorService.deleteAuthor(id);
+    }
 }
