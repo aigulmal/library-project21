@@ -25,6 +25,4 @@ public class UserRestController {
         return "users";
     }
 
-
-
 }
