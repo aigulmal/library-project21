@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.itgirl.libraryproject21.dto.*;
 import ru.itgirl.libraryproject21.model.Author;
-import ru.itgirl.libraryproject21.model.Book;
 import ru.itgirl.libraryproject21.model.User;
 import ru.itgirl.libraryproject21.repository.UserRepository;
 
@@ -37,17 +36,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserUpdateDto userUpdateDto) {
         User user = userRepository.findById(userUpdateDto.getId()).orElseThrow();
-        user.
+        user.setLogin(userUpdateDto.getLogin());
+        user.setPassword(user.getPassword());
+        User savedUser = userRepository.save(user);
+        UserDto userDto = convertEntityToDto(savedUser);
+        return userDto;
     }
 
     @Override
-    public void deleteAuthor(Long id) {
-        authorRepository.deleteById(id);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
     private User convertDtoToEntity(UserCreateDto authorCreateDto) {
-        return Author.builder()
-                .name(authorCreateDto.getName())
-                .surname(authorCreateDto.getSurname())
+        return User.builder()
+                .login(authorCreateDto.getLogin())
+                .password(authorCreateDto.getPassword())
                 .build();
     }
     private UserDto convertEntityToDto(User user){

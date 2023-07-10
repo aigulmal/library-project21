@@ -1,10 +1,7 @@
 package ru.itgirl.libraryproject21.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,8 +15,10 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
+    @Setter
     private String login;
 
     @Column(nullable = false)
+    @Setter
     private String password;
 }
