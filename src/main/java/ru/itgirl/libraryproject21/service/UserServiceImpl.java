@@ -47,17 +47,19 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
-    private User convertDtoToEntity(UserCreateDto authorCreateDto) {
+    private User convertDtoToEntity(UserCreateDto userCreateDto) {
         return User.builder()
-                .login(authorCreateDto.getLogin())
-                .password(authorCreateDto.getPassword())
+                .login(userCreateDto.getLogin())
+                .password(userCreateDto.getPassword())
                 .build();
     }
+
     private UserDto convertEntityToDto(User user){
-        return UserDto.builder()
+        UserDto userDto = UserDto.builder()
                 .id(user.getId())
                 .login(user.getLogin())
                 .password(user.getPassword())
                 .build();
+        return userDto;
     }
 }

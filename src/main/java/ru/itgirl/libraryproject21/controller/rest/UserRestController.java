@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.itgirl.libraryproject21.dto.*;
 import ru.itgirl.libraryproject21.service.UserService;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class UserRestController {
     private final UserService userService;
