@@ -1,6 +1,7 @@
 package ru.itgirl.libraryproject21.controller.rest;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +14,13 @@ public class UserRestController {
     private final UserService userService;
 
     @GetMapping("user/{id}")
-    UserDto getUserById(@PathVariable("id") Long id){return userService.getUserById(id);}
-
+    UserDto getUserById(@PathVariable("id") Long id){
+        return userService.getUserById(id);
+    }
+    @GetMapping("/user")
+    UserDto getByUserName(@RequestParam("username") String username){
+        return userService.getByName(username);
+    }
     @GetMapping("/users")
     String getUsersView(Model model) {
         model.addAttribute("users", userService.getAllUsers());
@@ -25,11 +31,11 @@ public class UserRestController {
         return userService.createUser(userCreateDto);
     }
     @PutMapping("/user/update")
-    UserDto updateAuthor(@RequestBody UserUpdateDto userUpdateDto) {
+    UserDto updateUser(@RequestBody UserUpdateDto userUpdateDto) {
         return userService.updateUser(userUpdateDto);
     }
     @DeleteMapping("/user/delete/{id}")
-    void updateAuthor(@PathVariable("id") Long id) {
+    void deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
     }
 }

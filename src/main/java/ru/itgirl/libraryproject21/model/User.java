@@ -3,6 +3,8 @@ package ru.itgirl.libraryproject21.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -21,4 +23,9 @@ public class User {
     @Column(nullable = false)
     @Setter
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    @Setter
+    @Getter
+    private Set<Roles> roles;
 }
