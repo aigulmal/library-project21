@@ -37,12 +37,16 @@ public class UserServiceImpl implements UserService {
 
     private List<String> getRolesAsStringList(User user) {
         UserDto userDto = convertEntityToDto(user);
-        return userDto.getRoles().stream().map().toList();
+        return userDto.getRoles().stream().
+                map(user1->UserDto.builder()
+                        .id()
+                .login()).toList();
+
 
     }
     private String getRolesAsString(User user) {
         UserDto userDto = convertEntityToDto(user);
-        List<String> roles = userDto.getRoles().stream().map(RoleDto::getRolename).toList();
+        List<String> roles = userDto.getRoles().stream().map((String t) -> RoleDto.getRolename(t)).toList();
         return roles.toString();
     }
     @Override
