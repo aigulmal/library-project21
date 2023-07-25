@@ -7,5 +7,5 @@ import ru.itgirl.libraryproject21.model.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findUsersByUsername(String userName);
+    Optional<User> findUsersByUsername(String login);
 }

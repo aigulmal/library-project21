@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import ru.itgirl.libraryproject21.dto.UserDto;
+import ru.itgirl.libraryproject21.model.Roles;
 import ru.itgirl.libraryproject21.service.UserService;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class SecurityConfig {
         UserDto userDto1 = userService.getUserById(1L);
         UserDto userDto2 = userService.getUserById(2L);
 
-        List<String> userRoles1 = userDto1.getRoles();
+        List<Roles> userRoles1 = userDto1.getRoles();
         String[] roles1= new String[userRoles1.size()];
 
 
@@ -49,7 +50,7 @@ public class SecurityConfig {
                 .roles(userRoles1.toArray(roles1))
                 .build();
 
-        List<String> userRoles2 = userDto2.getRoles();
+        List<Roles> userRoles2 = userDto2.getRoles();
         String[] roles2= new String[userRoles2.size()];
 
         UserDetails user2 = users

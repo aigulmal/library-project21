@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itgirl.libraryproject21.model.Roles;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,5 +17,5 @@ public class UserCreateDto {
     private Long id;
     private String login;
     private String password;
-    private List<RoleDto> roles;
+    private List<Roles> roles;
 }

@@ -3,6 +3,7 @@ package ru.itgirl.libraryproject21.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.itgirl.libraryproject21.dto.*;
+import ru.itgirl.libraryproject21.model.Roles;
 import ru.itgirl.libraryproject21.model.User;
 import ru.itgirl.libraryproject21.repository.UserRepository;
 
@@ -22,8 +23,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getByName(String username) {
-        User user = userRepository.findUsersByUsername(username).orElseThrow();
+    public UserDto getByName(String login) {
+        User user = userRepository.findUsersByUsername(login).orElseThrow();
         return convertEntityToDto(user);
     }
     public HashMap<String, String> getInformationAboutUserAsHashMap(Long id) {
@@ -35,13 +36,13 @@ public class UserServiceImpl implements UserService {
         return userData;
     }
 
-    private List<RoleDto> getRolesAsStringList(User user) {
+    private List<String> getRolesAsStringList(User user) {
         UserDto userDto = convertEntityToDto(user);
-        return userDto.getRoles().stream().map();
+        return userDto.getRoles().stream().map(Roles::getRolename).toList();
     }
     private String getRolesAsString(User user) {
         UserDto userDto = convertEntityToDto(user);
-        List<String> roles = userDto.getRoles().stream().map((String t) -> RoleDto.getRolename(t)).toList();
+        List<String> roles = userDto.getRoles().stream().map(Roles::getRolename).toList();
         return roles.toString();
     }
     @Override
@@ -70,25 +71,26 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
-    private User convertDtoToEntity(UserCreateDto user) {
-        List<RoleDto> rolesDto = user.getRoles().stream().
-                map(role -> RoleDto.builder().
-                        id(role.getId()).
-                        rolename(role.getRolename()).
-                        build()).
-                toList();
-
-        return UserDto.builder().
-                id(user.getId()).
-                login(user.getLogin()).
-                password(user.getPassword()).
-                roles(rolesDto).
+    private User convertDtoToEntity(UserCreateDto userCreateDto) {
+//        List<RoleDto> rolesDto = user.getRoles()
+//                .stream()
+//                .map(role -> RoleDto.builder().
+//                        id(role.getId()).
+//                        rolename(role.getRolename()).
+//                        build()).
+//                toList();
+        return User.builder().
+                id(userCreateDto.getId()).
+                login(userCreateDto.getLogin()).
+                password(userCreateDto.getPassword()).
+                roles(userCreateDto.getRoles()).
                 build();
     }
 
     private UserDto convertEntityToDto(User user) {
-        List<RoleDto> rolesDto = user.getRoles().stream().
-                map(role -> RoleDto.builder().
+        List<RoleDto> rolesDto = user.getRoles()
+                .stream()
+                .map(role -> RoleDto.builder().
                         id(role.getId()).
                         rolename(role.getRolename()).
                         build()).
@@ -98,7 +100,7 @@ public class UserServiceImpl implements UserService {
                 id(user.getId()).
                 login(user.getLogin()).
                 password(user.getPassword()).
-                roles(rolesDto.stream().map(RoleDto::getRolename).toList()).
+                roles(user.getRoles()).
                 build();
     }
 }

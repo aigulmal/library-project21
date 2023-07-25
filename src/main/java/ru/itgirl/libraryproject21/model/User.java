@@ -3,7 +3,7 @@ package ru.itgirl.libraryproject21.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,5 +27,5 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     @Setter
     @Getter
-    private Set<Roles> roles;
+    private List<Roles> roles;
 }
